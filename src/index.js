@@ -1,11 +1,18 @@
 import express from 'express';
 import path from 'path';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 
-const app = express();
+import auth from './routes/auth';
 
-app.post("/api/auth", (req, res) => {
-  res.status(400).json({ errors: { global: "invalid credentials" } });
-});
+const app = express(); 
+app.use(bodyParser.json());
+// connect to mongodb
+mongoose.connect("mongodb://localhost/kamst");
+
+// mounting user from api authorization
+app.use('/api/auth', auth);
+
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
