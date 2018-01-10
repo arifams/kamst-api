@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import auth from './routes/auth';
+import users from './routes/users';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ mongoose.connect(process.env.MONGODB_URL);
 
 // mounting user from api authorization
 app.use('/api/auth', auth);
+app.use('/api/users', users);
 
 
 app.get("/*", (req, res) => {
